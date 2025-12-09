@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+
+class Mobil {
+public:
+    string merk;
+    int tahun;
+
+    void inputMobil() {
+        cout << "Masukkan merk mobil  : ";
+        cin >> merk;
+        cout << "Masukkan tahun mobil : ";
+        cin >> tahun;
+    }
+
+    void infoMobil() {
+        cout << "Merk: " << merk << ", Tahun: " << tahun << endl;
+    }
+};
+
+int main() {
+    Mobil m1, m2;
+    cout << "\nInput data Mobil 1\n";
+    m1.inputMobil();
+
+    cout << "\nInput data Mobil 2\n";
+    m2.inputMobil();
+
+    cout << "\n=== Data Mobil ===\n";
+    m1.infoMobil();
+    m2.infoMobil();
+
+    return 0;
+}
