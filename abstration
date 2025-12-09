@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+// Class abstrak
+class Bentuk {
+public:
+    virtual void gambar() = 0;
+};
+
+// Class turunan 1
+class Lingkaran : public Bentuk {
+public:
+    void gambar() {
+        cout << "Menggambar Lingkaran 🔵" << endl;
+    }
+};
+
+// Class turunan 2
+class Persegi : public Bentuk {
+public:
+    void gambar() {
+        cout << "Menggambar Persegi ◼️" << endl;
+    }
+};
+
+int main() {
+    int pilihan;
+    Bentuk* shape; // pointer ke class abstrak
+
+    cout << "Pilih bentuk yang ingin digambar:" << endl;
+    cout << "1. Lingkaran" << endl;
+    cout << "2. Persegi" << endl;
+    cout << "Masukkan pilihan (1/2): ";
+    cin >> pilihan;
+
+    if (pilihan == 1) {
+        shape = new Lingkaran();
+    } 
+    else if (pilihan == 2) {
+        shape = new Persegi();
+    }
+    else {
+        cout << "Pilihan tidak valid!" << endl;
+        return 0;
+    }
+
+    shape->gambar(); // polymorphism berjalan di sini
+
+    delete shape;
+    return 0;
+}
