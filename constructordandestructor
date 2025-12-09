@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+class Mobil {
+public:
+    string merk;
+    int tahun;
+
+    // Constructor
+    Mobil(string m, int t) {
+        merk = m;
+        tahun = t;
+        cout << "Constructor dipanggil untuk " << merk << endl;
+    }
+
+    // Destructor
+    ~Mobil() {
+        cout << "Destructor dipanggil untuk " << merk << endl;
+    }
+
+    void infoMobil() {
+        cout << "Merk: " << merk << ", Tahun: " << tahun << endl;
+    }
+};
+
+int main() {
+    string merk1, merk2;
+    int tahun1, tahun2;
+
+    cout << "Masukkan merk mobil 1 : ";
+    cin >> merk1;
+    cout << "Masukkan tahun mobil 1: ";
+    cin >> tahun1;
+
+    cout << "\nMasukkan merk mobil 2 : ";
+    cin >> merk2;
+    cout << "Masukkan tahun mobil 2: ";
+    cin >> tahun2;
+
+    // Membuat object dengan constructor
+    Mobil m1(merk1, tahun1);
+    Mobil m2(merk2, tahun2);
+
+    cout << "\n=== Data Mobil ===" << endl;
+    m1.infoMobil();
+    m2.infoMobil();
+
+    return 0;
+}
