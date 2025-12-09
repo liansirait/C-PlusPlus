@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Mahasiswa {
+private:
+    int umur; // dibuat private
+
+public:
+    string nama;
+
+    // Setter
+    void setUmur(int u) {
+        if(u > 0) umur = u;
+        else umur = 0;
+    }
+
+    // Getter
+    int getUmur() {
+        return umur;
+    }
+};
+
+int main() {
+    Mahasiswa mhs;
+
+    cout << "Masukkan nama mahasiswa : ";
+    getline(cin, mhs.nama);
+
+    int u;
+    cout << "Masukkan umur mahasiswa : ";
+    cin >> u;
+    mhs.setUmur(u);
+
+    cout << "\n=== DATA MAHASISWA ===\n";
+    cout << "Nama : " << mhs.nama << endl;
+    cout << "Umur : " << mhs.getUmur() << endl;
+
+    return 0;
+}
