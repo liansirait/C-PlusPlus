@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Parent Class
+class Orang {
+public:
+    string nama;
+    int umur;
+
+    void inputOrang() {
+        cout << "Nama : ";
+        getline(cin, nama);
+        cout << "Umur : ";
+        cin >> umur;
+        cin.ignore();
+    }
+
+    void tampilOrang() {
+        cout << "Nama : " << nama << endl;
+        cout << "Umur : " << umur << endl;
+    }
+};
+
+// Child Class - Mahasiswa
+class Mahasiswa : public Orang {
+public:
+    string nim;
+
+    void inputMahasiswa() {
+        inputOrang();
+        cout << "NIM  : ";
+        getline(cin, nim);
+    }
+
+    void tampilMahasiswa() {
+        tampilOrang();
+        cout << "NIM  : " << nim << endl;
+    }
+};
+
+// Child Class - Dosen
+class Dosen : public Orang {
+public:
+    string nidn;
+
+    void inputDosen() {
+        inputOrang();
+        cout << "NIDN : ";
+        getline(cin, nidn);
+    }
+
+    void tampilDosen() {
+        tampilOrang();
+        cout << "NIDN : " << nidn << endl;
+    }
+};
+
+int main() {
+    Mahasiswa mhs;
+    Dosen dsn;
+
+    cout << "=== INPUT DATA MAHASISWA ===" << endl;
+    mhs.inputMahasiswa();
+
+    cout << "\n=== INPUT DATA DOSEN ===" << endl;
+    dsn.inputDosen();
+
+    cout << "\n--- DATA MAHASISWA ---" << endl;
+    mhs.tampilMahasiswa();
+
+    cout << "\n--- DATA DOSEN ---" << endl;
+    dsn.tampilDosen();
+
+    return 0;
+}
