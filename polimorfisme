@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+class Hewan {
+public:
+    virtual void suara() {
+        cout << "??" << endl;
+    }
+};
+
+class Kucing : public Hewan {
+public:
+    void suara() override {
+        cout << "Meong!" << endl;
+    }
+};
+
+class Anjing : public Hewan {
+public:
+    void suara() override {
+        cout << "Guk! Guk!" << endl;
+    }
+};
+
+int main() {
+    Hewan* h;
+    int pilihan;
+
+    cout << "Pilih hewan:" << endl;
+    cout << "1. Kucing" << endl;
+    cout << "2. Anjing" << endl;
+    cout << "Masukkan pilihan (1/2): ";
+    cin >> pilihan;
+
+    if (pilihan == 1) {
+        h = new Kucing();
+    } else if (pilihan == 2) {
+        h = new Anjing();
+    } else {
+        cout << "Pilihan tidak tersedia!" << endl;
+        return 0;
+    }
+
+    cout << "Suara hewan: ";
+    h->suara();
+
+    delete h;
+    return 0;
+}
