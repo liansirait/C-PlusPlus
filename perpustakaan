@@ -1,0 +1,90 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// ========= Abstraction & Inheritance =========
+class Orang {              // class abstrak
+protected:
+    string nama;
+public:
+    Orang(string n) : nama(n) {}
+    virtual void info() = 0;   // pure virtual → abstraction
+    string getNama() const { return nama; }
+    virtual ~Orang() {}        // destructor virtual
+};
+
+class Peminjam : public Orang {
+    string id;
+public:
+    Peminjam(string n, string idP) : Orang(n), id(idP) {}  // constructor
+    void info() override {    // polymorphism
+        cout << "[Peminjam] " << nama << " (ID: " << id << ")\n";
+    }
+};
+
+class Petugas : public Orang {
+    string shift;
+public:
+    Petugas(string n, string s) : Orang(n), shift(s) {}
+    void info() override {
+        cout << "[Petugas]  " << nama << " (Shift: " << shift << ")\n";
+    }
+};
+
+// ========= Encapsulation =========
+class Buku {
+private:
+    string judul;
+    string penulis;
+    bool   tersedia;
+public:
+    // constructor
+    Buku(string j, string p) : judul(j), penulis(p), tersedia(true) {}
+
+    // getter & setter (encapsulation)
+    string getJudul()   const { return judul; }
+    string getPenulis() const { return penulis; }
+    bool   isTersedia() const { return tersedia; }
+
+    void pinjam()   { if (tersedia) tersedia = false; }
+    void kembalikan(){ tersedia = true; }
+};
+
+// ========= MAIN =========
+int main() {
+    // buat 1 buku
+    Buku b1("Pemrograman C++", "Parulian Sirait");
+
+    // buat peminjam & petugas
+    Peminjam p1("Andi", "M001");
+    Petugas  t1("Budi", "Pagi");
+
+    // Polymorphism: pointer ke Orang bisa menunjuk ke Peminjam / Petugas
+    vector<Orang*> orangs = { &p1, &t1 };
+
+    cout << "=== DATA ORANG DI PERPUSTAKAAN ===\n";
+    for (Orang* o : orangs) {
+        o->info();        // memanggil versi info() sesuai tipe objek
+    }
+
+    cout << "\n=== DATA BUKU ===\n";
+    cout << "Judul   : " << b1.getJudul()   << endl;
+    cout << "Penulis : " << b1.getPenulis() << endl;
+    cout << "Status  : " << (b1.isTersedia() ? "Tersedia" : "Dipinjam") << endl;
+
+    // simulasi peminjaman buku oleh peminjam
+    cout << "\n" << p1.getNama() << " meminjam buku...\n";
+    b1.pinjam();
+
+    cout << "Status buku sekarang: "
+         << (b1.isTersedia() ? "Tersedia" : "Dipinjam") << endl;
+
+    // simulasi pengembalian
+    cout << "\nBuku dikembalikan.\n";
+    b1.kembalikan();
+
+    cout << "Status buku sekarang: "
+         << (b1.isTersedia() ? "Tersedia" : "Dipinjam") << endl;
+
+    return 0;
+}
