@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* head = NULL;
+
+Node* buatNode(int nilai) {
+    Node* baru = new Node();
+    baru->data = nilai;
+    baru->next = NULL;
+    return baru;
+}
+
+void tampil() {
+    Node* p = head;
+    cout << "List: ";
+    while (p != NULL) {
+        cout << p->data << " -> ";
+        p = p->next;
+    }
+    cout << "NULL\n";
+}
+
+void insertAkhir(int nilai) {
+    Node* baru = buatNode(nilai);
+
+    if (head == NULL) {
+        head = baru;
+        return;
+    }
+
+    Node* p = head;
+    while (p->next != NULL)
+        p = p->next;
+    p->next = baru;
+}
+
+// Delete node berdasarkan nilai "key"
+void deleteNilai(int key) {
+    if (head == NULL) {
+        cout << "List kosong, tidak bisa delete\n";
+        return;
+    }
+
+    // jika node pertama yang dihapus
+    if (head->data == key) {
+        Node* hapus = head;
+        head = head->next;
+        cout << "Menghapus data: " << hapus->data << endl;
+        delete hapus;
+        return;
+    }
+
+    Node* p = head;
+    // cari node sebelum node yang akan dihapus
+    while (p->next != NULL && p->next->data != key)
+        p = p->next;
+
+    if (p->next == NULL) {
+        cout << "Data " << key << " tidak ditemukan\n";
+        return;
+    }
+
+    Node* hapus = p->next;
+    p->next = hapus->next;
+    cout << "Menghapus data: " << hapus->data << endl;
+    delete hapus;
+}
+
+int main() {
+    cout << "Praktikum 6: Delete Berdasarkan Nilai\n";
+
+    // Buat list: 10 -> 20 -> 30 -> 40 -> 50
+    insertAkhir(10);
+    insertAkhir(20);
+    insertAkhir(30);
+    insertAkhir(40);
+    insertAkhir(50);
+
+    cout << "List awal:\n";
+    tampil();
+
+    cout << "\nHapus nilai 30:\n";
+    deleteNilai(30);
+    tampil();
+
+    cout << "\nHapus nilai 10 (data pertama):\n";
+    deleteNilai(10);
+    tampil();
+
+    cout << "\nCoba hapus nilai yang tidak ada (999):\n";
+    deleteNilai(999);
+    tampil();
+
+    return 0;
+}
