@@ -1,0 +1,108 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+Node* head = NULL;
+Node* tail = NULL;
+
+Node* buatNode(int nilai) {
+    Node* n = new Node();
+    n->data = nilai;
+    n->prev = NULL;
+    n->next = NULL;
+    return n;
+}
+
+void insertAkhir(int nilai) {
+    Node* baru = buatNode(nilai);
+
+    if (head == NULL) {
+        head = tail = baru;
+    } else {
+        tail->next = baru;
+        baru->prev = tail;
+        tail = baru;
+    }
+}
+
+void tampilMaju() {
+    cout << "List : ";
+    Node* p = head;
+    while (p != NULL) {
+        cout << p->data << " <-> ";
+        p = p->next;
+    }
+    cout << "NULL\n";
+}
+
+// Delete node dengan data == key
+void deleteNilai(int key) {
+    if (head == NULL) {
+        cout << "List kosong\n";
+        return;
+    }
+
+    Node* p = head;
+
+    // cari node dengan nilai key
+    while (p != NULL && p->data != key)
+        p = p->next;
+
+    if (p == NULL) {
+        cout << "Data " << key << " tidak ditemukan\n";
+        return;
+    }
+
+    cout << "Menghapus: " << p->data << endl;
+
+    // kasus: node di awal
+    if (p == head) {
+        head = head->next;
+        if (head != NULL)
+            head->prev = NULL;
+    }
+    // kasus: node di akhir
+    else if (p == tail) {
+        tail = tail->prev;
+        tail->next = NULL;
+    }
+    // kasus: node di tengah
+    else {
+        p->prev->next = p->next;
+        p->next->prev = p->prev;
+    }
+
+    delete p;
+}
+
+int main() {
+    cout << "Praktikum 3: Delete Berdasarkan Nilai (DLL)\n";
+
+    // List awal: 10 <-> 20 <-> 30 <-> 40 <-> 50
+    insertAkhir(10);
+    insertAkhir(20);
+    insertAkhir(30);
+    insertAkhir(40);
+    insertAkhir(50);
+
+    tampilMaju();
+
+    cout << "\nHapus 30 (node tengah):\n";
+    deleteNilai(30);
+    tampilMaju();
+
+    cout << "\nHapus 10 (node awal):\n";
+    deleteNilai(10);
+    tampilMaju();
+
+    cout << "\nHapus 50 (node akhir):\n";
+    deleteNilai(50);
+    tampilMaju();
+
+    return 0;
+}
