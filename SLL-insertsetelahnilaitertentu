@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* head = NULL;
+
+Node* buatNode(int nilai) {
+    Node* baru = new Node();
+    baru->data = nilai;
+    baru->next = NULL;
+    return baru;
+}
+
+void tampil() {
+    Node* p = head;
+    cout << "List: ";
+    while (p != NULL) {
+        cout << p->data << " -> ";
+        p = p->next;
+    }
+    cout << "NULL\n";
+}
+
+void insertAkhir(int nilai) {
+    Node* baru = buatNode(nilai);
+
+    if (head == NULL) {
+        head = baru;
+        return;
+    }
+
+    Node* p = head;
+    while (p->next != NULL)
+        p = p->next;
+    p->next = baru;
+}
+
+// Insert setelah nilai "key"
+void insertSetelah(int key, int nilai) {
+    Node* p = head;
+
+    // cari node dengan data == key
+    while (p != NULL && p->data != key)
+        p = p->next;
+
+    if (p == NULL) {
+        cout << "Data " << key << " tidak ditemukan\n";
+        return;
+    }
+
+    Node* baru = buatNode(nilai);
+    baru->next = p->next;
+    p->next = baru;
+}
+
+int main() {
+    cout << "Praktikum 3: Insert Setelah Nilai Tertentu\n";
+
+    // Buat list awal: 10 -> 20 -> 30 -> 40
+    insertAkhir(10);
+    insertAkhir(20);
+    insertAkhir(30);
+    insertAkhir(40);
+
+    cout << "List awal:\n";
+    tampil();
+
+    cout << "\nInsert 25 setelah 20:\n";
+    insertSetelah(20, 25);
+    tampil();
+
+    cout << "\nInsert 35 setelah 30:\n";
+    insertSetelah(30, 35);
+    tampil();
+
+    cout << "\nInsert 50 setelah 40:\n";
+    insertSetelah(40, 50);
+    tampil();
+
+    return 0;
+}
