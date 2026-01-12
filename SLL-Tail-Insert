@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* head = NULL;
+Node* tail = NULL;
+
+Node* buatNode(int nilai) {
+    Node* n = new Node();
+    n->data = nilai;
+    n->next = NULL;
+    return n;
+}
+
+void tampil() {
+    Node* p = head;
+    cout << "List: ";
+    while (p != NULL) {
+        cout << p->data << " -> ";
+        p = p->next;
+    }
+    cout << "NULL\n";
+}
+
+// INSERT AKHIR O(1)
+void insertAkhir(int nilai) {
+    Node* baru = buatNode(nilai);
+
+    if (head == NULL) {
+        head = tail = baru;
+    } else {
+        tail->next = baru;
+        tail = baru;
+    }
+}
+
+int main() {
+    cout << "Praktikum: Insert Akhir Menggunakan Tail\n";
+
+    insertAkhir(10);
+    insertAkhir(20);
+    insertAkhir(30);
+
+    tampil();
+
+    insertAkhir(40);
+    tampil();
+
+    return 0;
+}
