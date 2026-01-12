@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* head = NULL;
+Node* tail = NULL;
+
+Node* buatNode(int nilai) {
+    Node* n = new Node();
+    n->data = nilai;
+    n->next = NULL;
+    return n;
+}
+
+void tampil() {
+    Node* p = head;
+    cout << "List: ";
+    while (p != NULL) {
+        cout << p->data << " -> ";
+        p = p->next;
+    }
+    cout << "NULL\n";
+}
+
+// Insert akhir untuk membuat data awal
+void insertAkhir(int nilai) {
+    Node* baru = buatNode(nilai);
+
+    if (head == NULL) {
+        head = tail = baru;
+    } else {
+        tail->next = baru;
+        tail = baru;
+    }
+}
+
+// DELETE AKHIR
+void deleteAkhir() {
+    if (head == NULL) {
+        cout << "List kosong!\n";
+        return;
+    }
+
+    if (head == tail) { // hanya 1 node
+        cout << "Menghapus: " << tail->data << endl;
+        delete tail;
+        head = tail = NULL;
+        return;
+    }
+
+    Node* p = head;
+    while (p->next != tail) // cari node sebelum tail
+        p = p->next;
+
+    cout << "Menghapus: " << tail->data << endl;
+    delete tail;
+
+    tail = p;
+    tail->next = NULL;
+}
+
+int main() {
+    cout << "Praktikum: Delete Akhir Menggunakan Tail\n";
+
+    insertAkhir(10);
+    insertAkhir(20);
+    insertAkhir(30);
+    insertAkhir(40);
+
+    tampil();
+
+    deleteAkhir();
+    tampil();
+
+    deleteAkhir();
+    tampil();
+
+    return 0;
+}
