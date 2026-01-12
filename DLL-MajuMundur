@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+Node* head = NULL;
+Node* tail = NULL;
+
+Node* buatNode(int nilai) {
+    Node* n = new Node();
+    n->data = nilai;
+    n->prev = NULL;
+    n->next = NULL;
+    return n;
+}
+
+// Tambah di akhir (biar cepat membentuk list)
+void insertAkhir(int nilai) {
+    Node* baru = buatNode(nilai);
+
+    if (head == NULL) {
+        head = tail = baru;
+    } else {
+        tail->next = baru;
+        baru->prev = tail;
+        tail = baru;
+    }
+}
+
+void tampilMaju() {
+    cout << "Maju : ";
+    Node* p = head;
+    while (p != NULL) {
+        cout << p->data << " <-> ";
+        p = p->next;
+    }
+    cout << "NULL\n";
+}
+
+void tampilMundur() {
+    cout << "Mundur: ";
+    Node* p = tail;
+    while (p != NULL) {
+        cout << p->data << " <-> ";
+        p = p->prev;
+    }
+    cout << "NULL\n";
+}
+
+int main() {
+    cout << "Praktikum 1: DLL & Traversal Maju–Mundur\n";
+
+    insertAkhir(10);
+    insertAkhir(20);
+    insertAkhir(30);
+    insertAkhir(40);
+
+    tampilMaju();
+    tampilMundur();
+
+    return 0;
+}
