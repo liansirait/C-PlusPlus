@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* head = NULL;
+
+Node* buatNode(int nilai) {
+    Node* baru = new Node();
+    baru->data = nilai;
+    baru->next = NULL;
+    return baru;
+}
+
+void tampil() {
+    Node* p = head;
+    cout << "List: ";
+    while (p != NULL) {
+        cout << p->data << " -> ";
+        p = p->next;
+    }
+    cout << "NULL\n";
+}
+
+void insertAkhir(int nilai) {
+    Node* baru = buatNode(nilai);
+
+    if (head == NULL) {
+        head = baru;
+        return;
+    }
+
+    Node* p = head;
+    while (p->next != NULL)
+        p = p->next;
+    p->next = baru;
+}
+
+// Delete node terakhir
+void deleteAkhir() {
+    if (head == NULL) {
+        cout << "List kosong, tidak bisa delete akhir\n";
+        return;
+    }
+
+    if (head->next == NULL) {   // hanya 1 node
+        cout << "Menghapus data: " << head->data << endl;
+        delete head;
+        head = NULL;
+        return;
+    }
+
+    Node* p = head;
+    while (p->next->next != NULL)   // berhenti di node sebelum terakhir
+        p = p->next;
+
+    Node* hapus = p->next;
+    cout << "Menghapus data: " << hapus->data << endl;
+    p->next = NULL;
+    delete hapus;
+}
+
+int main() {
+    cout << "Praktikum 5: Delete di Akhir\n";
+
+    // Buat list: 10 -> 20 -> 30 -> 40 -> 50
+    insertAkhir(10);
+    insertAkhir(20);
+    insertAkhir(30);
+    insertAkhir(40);
+    insertAkhir(50);
+
+    cout << "List awal:\n";
+    tampil();
+
+    cout << "\nDelete akhir 1x:\n";
+    deleteAkhir();
+    tampil();
+
+    cout << "\nDelete akhir 1x lagi:\n";
+    deleteAkhir();
+    tampil();
+
+    return 0;
+}
